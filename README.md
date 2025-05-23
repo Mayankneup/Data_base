@@ -4,7 +4,7 @@ A robust command-line Employee Performance Management System written in **C**, d
 
 ---
 
-## 🚀 Features
+## Features
 
 - **Modular CRUD Operations**  
   Add, update, and delete employee records seamlessly via an intuitive command-line interface.
@@ -29,14 +29,14 @@ A robust command-line Employee Performance Management System written in **C**, d
 
 ---
 
-## 💾 Data Storage
+## Data Storage
 
 - Employee records are stored in a binary file named `employees.dat`.
 - The program automatically loads this file at startup and writes to it upon exiting, ensuring data persistence across sessions.
 
 ---
 
-## 🧩 Structure
+## Structure
 
 - `main()` manages the main program loop and user interaction.
 - Functional decomposition is used to separate:
@@ -47,7 +47,7 @@ A robust command-line Employee Performance Management System written in **C**, d
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 - **Language:** C  
 - **Concepts:** Dynamic Memory Management, File I/O, CLI UI, Algorithm Design  
@@ -55,7 +55,7 @@ A robust command-line Employee Performance Management System written in **C**, d
 
 ---
 
-## 🧪 Compile and Run
+## Compile and Run
 
 ```bash
 gcc -o employee_manager main.c
