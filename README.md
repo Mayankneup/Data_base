@@ -1,24 +1,62 @@
-Employee Performance Management System
-This is a robust command-line Employee Performance Management System written in C. It offers a comprehensive set of features for managing employee records, including real-time CRUD operations, performance-based sorting, efficient data persistence, and enhanced user interaction.
+# Employee Performance Management System
 
-Features
-Modular CRUD Operations: Easily add, update, and remove employee records with a streamlined command-line interface.
-Dynamic Data Management: Efficiently handles varying dataset sizes using dynamic memory allocation (malloc, realloc, free), capable of managing over 1,000 employee entries.
-Performance Scoring: Automatically calculates and ranks employee performance based on a customizable algorithm leveraging salary and years of experience.
-Persistent Data Storage: Ensures data integrity and continuity across sessions by saving and loading employee information to/from a binary file (employees.dat) using fwrite and fread.
-Enhanced Search & Display: Quickly search for employees by name (case-insensitive) and display all records sorted by performance score for insightful analysis.
-Robust Input Handling: Incorporates input validation and a cleared input buffer for a more reliable and user-friendly experience.
-User Confirmation: Includes confirmation prompts for critical operations like employee removal to prevent accidental data loss.
-Data Storage
-Employee data is persistently stored in a binary file named employees.dat. The system automatically loads this data upon startup and saves any changes when the program exits, ensuring no data is lost between sessions.
+A robust command-line Employee Performance Management System written in **C**, designed to manage employee records with features such as real-time CRUD operations, performance-based sorting, dynamic memory management, and persistent binary file storage.
 
-Structure
-The main() function orchestrates the primary program loop and manages user interactions.
-Functions are modularized for clear separation of concerns, covering CRUD operations, file I/O, and data processing.
-Leverages dynamic memory allocation to efficiently manage the employee data array in memory, adapting to the number of stored records.
-Compile and Run
-To compile and run the Employee Performance Management System, follow these steps:
+---
 
-Bash
+## 🚀 Features
+
+- **Modular CRUD Operations**  
+  Add, update, and delete employee records seamlessly via an intuitive command-line interface.
+
+- **Dynamic Data Management**  
+  Handles growing datasets efficiently using dynamic memory allocation (`malloc`, `realloc`, `free`) — tested with over 1,000 entries.
+
+- **Performance Scoring System**  
+  Calculates and ranks employee performance using a customizable algorithm based on salary and years of experience.
+
+- **Persistent Binary File Storage**  
+  Saves and loads employee records to/from a binary file (`employees.dat`) using `fwrite()` and `fread()` to preserve data across sessions.
+
+- **Enhanced Search & Display**  
+  Quickly search for employees by name (case-insensitive) and list all employees sorted by performance score for performance insights.
+
+- **Robust Input Handling**  
+  Implements input validation and clears input buffers to prevent invalid entries and buffer overflows.
+
+- **User Confirmation on Destructive Actions**  
+  Adds a safety prompt before critical actions like record deletions to avoid unintended data loss.
+
+---
+
+## 💾 Data Storage
+
+- Employee records are stored in a binary file named `employees.dat`.
+- The program automatically loads this file at startup and writes to it upon exiting, ensuring data persistence across sessions.
+
+---
+
+## 🧩 Structure
+
+- `main()` manages the main program loop and user interaction.
+- Functional decomposition is used to separate:
+  - CRUD operations
+  - File I/O logic
+  - Sorting and searching
+- The system dynamically expands or shrinks the employee array as needed to accommodate the current number of records.
+
+---
+
+## 🛠️ Technologies Used
+
+- **Language:** C  
+- **Concepts:** Dynamic Memory Management, File I/O, CLI UI, Algorithm Design  
+- **Tools:** GCC Compiler, Linux Terminal (or Windows Subsystem for Linux)
+
+---
+
+## 🧪 Compile and Run
+
+```bash
 gcc -o employee_manager main.c
 ./employee_manager
