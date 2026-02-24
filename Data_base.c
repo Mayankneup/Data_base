@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <stddef.h>
 
 #define MAX_NAME_LEN 100
 #define MAX_DEPT_LEN 50
@@ -27,6 +28,7 @@ void sortEmployeesByPerformance(Employee *employees, int count);
 void freeMemory(Employee **employees, int *count);
 void saveToFile(Employee *employees, int count);
 void loadFromFile(Employee **employees, int *count);
+void exportToSQLFile(Employee *employees, int count, const char *sqlFileName);
 
 float calculatePerformanceScore(int yearsOfExperience, float salary);
 void clearInputBuffer(void);
@@ -37,6 +39,7 @@ static void trim_whitespace(char *s);
 static int read_line(char *buf, size_t n);
 static void *xrealloc(void *ptr, size_t size);
 static int compareEmployees(const void *a, const void *b);
+static void sql_escape(char *dst, size_t dstsz, const char *src);
 
 /* main */
 int main(void) {
@@ -83,7 +86,8 @@ int main(void) {
                 searchEmployeeByName(employees, count);
                 break;
             case 6:
-                saveToFile(employees, count);       //Exits the system, But saves all the relevent information to the file
+                saveToFile(employees, count);
+                exportToSQLFile(employees, count, "employees.sql");  // <-- HERE
                 printf("Exiting Employee Performance Management System. Goodbye!\n");
                 freeMemory(&employees, &count);
                 break;
@@ -500,7 +504,63 @@ void loadFromFile(Employee **employees, int *count) {
 
     printf("Loaded %d employee(s) from %s\n", *count, FILENAME);
 }
+static void sql_escape(char *dst, size_t dstsz, const char *src) {
+    // Escapes single quotes: O'Brien -> O''Brien
+    size_t j = 0;
+    for (size_t i = 0; src[i] && j + 1 < dstsz; i++) {
+        if (src[i] == '\'') {
+            if (j + 2 >= dstsz) break;
+            dst[j++] = '\'';
+            dst[j++] = '\'';
+        } else {
+            dst[j++] = src[i];
+        }
+    }
+    dst[j] = '\0';
+}
 
+void exportToSQLFile(Employee *employees, int count, const char *sqlFileName) {
+    FILE *f = fopen(sqlFileName, "w");
+    if (!f) {
+        perror("Failed to open SQL export file");
+        return;
+    }
+
+    fprintf(f,
+        "BEGIN TRANSACTION;\n"
+        "CREATE TABLE IF NOT EXISTS employees (\n"
+        "  employeeID INTEGER PRIMARY KEY,\n"
+        "  name TEXT NOT NULL,\n"
+        "  salary REAL NOT NULL,\n"
+        "  department TEXT NOT NULL,\n"
+        "  yearsOfExperience INTEGER NOT NULL,\n"
+        "  performanceScore REAL NOT NULL\n"
+        ");\n"
+    );
+
+    for (int i = 0; i < count; i++) {
+        char nameEsc[MAX_NAME_LEN * 2];
+        char deptEsc[MAX_DEPT_LEN * 2];
+        sql_escape(nameEsc, sizeof(nameEsc), employees[i].name);
+        sql_escape(deptEsc, sizeof(deptEsc), employees[i].department);
+
+        fprintf(f,
+            "INSERT INTO employees (employeeID, name, salary, department, yearsOfExperience, performanceScore)\n"
+            "VALUES (%d, '%s', %.2f, '%s', %d, %.2f);\n",
+            employees[i].employeeID,
+            nameEsc,
+            employees[i].salary,
+            deptEsc,
+            employees[i].yearsOfExperience,
+            employees[i].performanceScore
+        );
+    }
+
+    fprintf(f, "COMMIT;\n");
+    fclose(f);
+
+    printf("Exported %d employee(s) to %s\n", count, sqlFileName);
+}
 /* Clean up of memory */
 void freeMemory(Employee **employees, int *count) {
     if (!employees || !count) return;
