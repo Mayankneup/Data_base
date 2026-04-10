@@ -40,8 +40,7 @@ A robust, high-performance command-line interface (CLI) application written in *
    ```bash
    git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
    cd YOUR_REPO_NAME
-
- 2. **Run and compile the Application:**
+2. **Run and compile the Application:**
    ```bash
-      gcc -o employee_manager main.c
-      ./employee_manager
+   gcc -o employee_manager main.c
+   ./employee_manager
