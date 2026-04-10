@@ -1,62 +1,42 @@
-# Employee Performance Management System
+# 📊 Employee Performance Management System
 
-A robust command-line Employee Performance Management System written in **C**, designed to manage employee records with features such as real-time CRUD operations, performance-based sorting, dynamic memory management, and persistent binary file storage.
-
----
-
-## Features
-
-- **Modular CRUD Operations**  
-  Add, update, and delete employee records seamlessly via an intuitive command-line interface.
-
-- **Dynamic Data Management**  
-  Handles growing datasets efficiently using dynamic memory allocation (`malloc`, `realloc`, `free`) — tested with over 1,000 entries.
-
-- **Performance Scoring System**  
-  Calculates and ranks employee performance using a customizable algorithm based on salary and years of experience.
-
-- **Persistent Binary File Storage**  
-  Saves and loads employee records to/from a binary file (`employees.dat`) using `fwrite()` and `fread()` to preserve data across sessions.
-
-- **Enhanced Search & Display**  
-  Quickly search for employees by name (case-insensitive) and list all employees sorted by performance score for performance insights.
-
-- **Robust Input Handling**  
-  Implements input validation and clears input buffers to prevent invalid entries and buffer overflows.
-
-- **User Confirmation on Destructive Actions**  
-  Adds a safety prompt before critical actions like record deletions to avoid unintended data loss.
+A robust, high-performance command-line interface (CLI) application written in **C**. This system manages employee records using dynamic memory scaling, automated performance analytics, and dual-mode data persistence.
 
 ---
 
-## Data Storage
+## 🚀 Key Features
 
-- Employee records are stored in a binary file named `employees.dat`.
-- The program automatically loads this file at startup and writes to it upon exiting, ensuring data persistence across sessions.
-
----
-
-## Structure
-
-- `main()` manages the main program loop and user interaction.
-- Functional decomposition is used to separate:
-  - CRUD operations
-  - File I/O logic
-  - Sorting and searching
-- The system dynamically expands or shrinks the employee array as needed to accommodate the current number of records.
+* **Modular CRUD Engine:** Seamlessly add, update, search, and remove records.
+* **Dynamic Data Management:** Uses `malloc` and `realloc` for efficient memory scaling—tested with 1,000+ entries.
+* **Performance Scoring:** Automatically ranks employees using a weighted algorithm:
+    * $Score = (0.3 \times \text{Experience}) + (0.7 \times \frac{\text{Salary}}{1000})$
+* **Dual Persistence:** * **Binary:** Fast I/O via `employees.dat`.
+    * **SQL Export:** Generates an `employees.sql` script for database migration.
+* **Search & Analytics:** Case-insensitive search and `qsort` performance ranking.
 
 ---
 
-## Technologies Used
+## 🛠 Technical Stack
 
-- **Language:** C  
-- **Concepts:** Dynamic Memory Management, File I/O, CLI UI, Algorithm Design  
-- **Tools:** GCC Compiler, Linux Terminal (or Windows Subsystem for Linux)
+* **Language:** C (C99/C11)
+* **Concepts:** Pointer Manipulation, File I/O, Dynamic Arrays, String Sanitization
+* **Tools:** GCC Compiler, Linux Terminal/WSL
 
 ---
 
-## Compile and Run
+## 📂 Project Structure
 
-```bash
-gcc -o employee_manager main.c
-./employee_manager
+| Component | Responsibility |
+| :--- | :--- |
+| `main.c` | Core logic and memory management |
+| `employees.dat` | Binary storage for session persistence |
+| `employees.sql` | SQL export (generated on exit) |
+
+---
+
+## ⚙️ Installation & Usage
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
+   cd YOUR_REPO_NAME
